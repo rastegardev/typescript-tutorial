@@ -1,6 +1,35 @@
-//? Jalase 2:
+//? https://www.typescriptlang.org/docs/handbook/2/everyday-types.html
+//! Basic Types
+// Boolean
+let isDone: boolean = false;
+
+// Number
+let decimal: number = 6;
+let hex: number = 0xf00d;
+let binary: number = 0b1010;
+let octal: number = 0o744;
+let big: bigint = 100n;
+
+// String
+let color: string = "blue";
+color = "red";
+
+// Array
+// let list: number[] = [1, 2, 3];
+let list: Array<number> = [1, 2, 3];
+
+//! Everyday Types
+// Functions
+function greet(name: string) {
+  console.log("Hello, " + name.toUpperCase() + "!!");
+}
+
+function getFavoriteNumber(): number {
+  return 26;
+}
+
+//? https://www.typescriptlang.org/docs/handbook/2/generics.html
 //! Generics
-// https://www.typescriptlang.org/docs/handbook/2/generics.html
 
 interface Person1 {
   name: string;
