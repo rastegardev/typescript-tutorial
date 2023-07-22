@@ -5,56 +5,26 @@ interface ApiResponse<T> {
 }
 
 class ApiCaller<T> {
-  private baseUrl: string;
-
-  constructor(baseUrl: string) {
-    this.baseUrl = baseUrl;
-  }
+  constructor(private baseUrl: string) {}
 
   public async getResponse(): Promise<ApiResponse<T>> {
     try {
-      // API call is made here.
-      // Assume the response data from the API is stored in the responseData variable.
-
-      // For example purposes, let's assume responseData is the API response.
-      const responseData: any = {
-        status: 200,
-        data: "Example data",
-        error: null,
-      };
+      const response = await fetch(this.baseUrl);
+      const responseData = await response.json();
 
       // Check the status code
-      if (responseData.status !== 200) {
-        const errorMessage = this.getErrorMessage(responseData.status);
-        throw new Error(errorMessage);
+      if (!response.ok) {
+        throw new Error(responseData.error || "Unknown Error");
       }
 
       // If everything is correct, return the response
       return {
-        status: responseData.status,
+        status: response.status,
         data: responseData.data,
-        error: responseData.error,
+        error: null,
       };
     } catch (error) {
-      throw new Error(error.message);
-    }
-  }
-
-  // Helper function to get error message based on the status code
-  private getErrorMessage(statusCode: number): string {
-    switch (statusCode) {
-      case 400:
-        return "Bad Request";
-      case 401:
-        return "Unauthorized";
-      case 403:
-        return "Forbidden";
-      case 404:
-        return "Not Found";
-      case 422:
-        return "Unprocessable Entity";
-      default:
-        return "Unknown Error";
+      throw new Error(error.message || "Unknown Error");
     }
   }
 }
