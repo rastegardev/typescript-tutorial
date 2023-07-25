@@ -160,3 +160,5 @@ type joke = null | string | boolean;
 type mosi = NonNullable<joke>;
 let qumars: mosi = "aaa";
 console.log(typeof qumars);
+
+// ENUM
